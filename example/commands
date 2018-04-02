@@ -1,0 +1,1 @@
+lsof -ti:$portnum$ | xargs kill -9
