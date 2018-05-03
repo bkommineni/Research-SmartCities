@@ -1,7 +1,7 @@
 package main
 
 import (
-        "fmt"
+        _"fmt"
 	"math/rand"
         "log"
         "encoding/gob"
@@ -22,7 +22,9 @@ var batch_counter int = 0
    //in seconds give inerval to send data
    var interval_to_send_data time.Duration =  3600
    //readings := make([]SensorData,0)
-   var reservoir [4000]SensorData//reservoir
+   var RESERVOIR_SIZE = 4000
+   reservoir := make([]SensorData, RESERVOIR_SIZE) 
+   //var reservoir [RESERVOIR_SIZE]SensorData//reservoir
    var i = 0
    ticker := time.NewTicker(time.Second * interval_to_send_data)
 
@@ -60,12 +62,12 @@ var batch_counter int = 0
      if err == nil {
        sensorReading := SensorData{Temperature:temperature,Humidity:humidity}
        //readings = append(readings,sensorReading)
-       if i < 50 {
+       if i < RESERVOIR_SIZE {
        reservoir[i] = sensorReading;
 	} else {
 		j := rand.Intn(i+1);
 		//fmt.Println("Random number\n",j)
-		if j >= 0 && j < 50 {
+		if j >= 0 && j < RESERVOIR_SIZE {
 			//fmt.Println("Replacing index in reservoir with reading",j,sensorReading);
 			//fmt.Print(sensorReading);
 			reservoir[j] = sensorReading;

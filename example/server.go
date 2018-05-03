@@ -19,9 +19,11 @@ type SensorData struct {
 var batch_counter int = 0
 
 func handleConnection(conn net.Conn) {
-   fmt.Println("Connection Accepted!!")
+   //fmt.Println("Connection Accepted!!")
    //var readings []SensorData
-   var reservoir [50]SensorData//reservoir
+   var RESERVOIR_SIZE = 4000
+   reservoir := make([]SensorData, RESERVOIR_SIZE)
+   //var reservoir [RESERVOIR_SIZE]SensorData//reservoir
    dec := gob.NewDecoder(conn)
 
    dec.Decode(&reservoir)
